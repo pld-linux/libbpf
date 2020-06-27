@@ -2,12 +2,13 @@ Summary:	Libbpf library
 Summary(pl.UTF-8):	Biblioteka libbpf
 Name:		libbpf
 Version:	0.0.9
-Release:	1
+Release:	2
 License:	LGPL v2.1 or BSD
 Group:		Libraries
 #Source0Download: https://github.com/libbpf/libbpf/releases
 Source0:	https://github.com/libbpf/libbpf/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	6582f932a012710cc93d7c01e04da63c
+Patch0:		%{name}-hashmap.patch
 URL:		https://github.com/libbpf/libbpf
 BuildRequires:	elfutils-devel
 BuildRequires:	linux-libc-headers >= 7:5.4.0
@@ -58,6 +59,7 @@ wykorzystujących libbpf.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 # use NO_PKG_CONFIG to link with -lelf -lz, not $(pkg-config --libs libelf) which doesn't contain -lz
