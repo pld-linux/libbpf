@@ -1,13 +1,13 @@
 Summary:	Libbpf library
 Summary(pl.UTF-8):	Biblioteka libbpf
 Name:		libbpf
-Version:	0.1.0
+Version:	0.1.1
 Release:	1
 License:	LGPL v2.1 or BSD
 Group:		Libraries
 #Source0Download: https://github.com/libbpf/libbpf/releases
 Source0:	https://github.com/libbpf/libbpf/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	00b991a6e2d28d797a56ab1575ed40e1
+# Source0-md5:	2d8e3888e184f52901516da2c189f599
 URL:		https://github.com/libbpf/libbpf
 BuildRequires:	elfutils-devel
 BuildRequires:	linux-libc-headers >= 7:5.4.0
@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc LICENSE LICENSE.BSD-2-Clause README.md
-%attr(755,root,root) %{_libdir}/libbpf.so.%{version}
+%attr(755,root,root) %{_libdir}/libbpf.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libbpf.so.0
 
 %files devel
