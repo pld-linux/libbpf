@@ -1,18 +1,28 @@
+#
+# Conditional build:
+%bcond_without	apidocs	# API documentation
+
 Summary:	Libbpf library
 Summary(pl.UTF-8):	Biblioteka libbpf
 Name:		libbpf
-Version:	0.4.0
+Version:	0.5.0
 Release:	1
 License:	LGPL v2.1 or BSD
 Group:		Libraries
 #Source0Download: https://github.com/libbpf/libbpf/releases
 Source0:	https://github.com/libbpf/libbpf/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	5519ca42fffca50568256061322c64a6
+# Source0-md5:	ba0a514d2775f033c24a6fec37e587bc
 URL:		https://github.com/libbpf/libbpf
 BuildRequires:	elfutils-devel
 BuildRequires:	linux-libc-headers >= 7:5.4.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	zlib-devel
+%if %{with apidocs}
+BuildRequires:	doxygen
+BuildRequires:	python3-breathe
+BuildRequires:	sphinx-pdg-3
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,6 +66,18 @@ use libbpf.
 Ten pakiet zawiera bibliotekę statyczną do tworzenia aplikacji
 wykorzystujących libbpf.
 
+%package apidocs
+Summary:	API documentation for libbpf library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki libbpf
+Group:		Documentation
+BuildArch:	noarch
+
+%description apidocs
+API documentation for libbpf library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki libbpf.
+
 %prep
 %setup -q
 
@@ -67,6 +89,13 @@ wykorzystujących libbpf.
 	LDFLAGS="%{rpmldflags}" \
 	NO_PKG_CONFIG=1 \
 	V=1
+
+%if %{with apidocs}
+READTHEDOCS=True \
+%{__make} -C docs -f sphinx/Makefile html \
+	SOURCEDIR=. \
+	SPHINXBUILD=sphinx-build-3
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -96,3 +125,9 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libbpf.a
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%doc docs/build/html/{_static,*.html,*.js}
+%endif
