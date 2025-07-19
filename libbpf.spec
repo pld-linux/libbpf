@@ -5,13 +5,13 @@
 Summary:	Libbpf library
 Summary(pl.UTF-8):	Biblioteka libbpf
 Name:		libbpf
-Version:	1.6.0
+Version:	1.6.1
 Release:	1
 License:	LGPL v2.1 or BSD
 Group:		Libraries
 #Source0Download: https://github.com/libbpf/libbpf/releases
 Source0:	https://github.com/libbpf/libbpf/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a6bbf2696446fa17bd1241dd78d508ec
+# Source0-md5:	8e2d565499fa0e3006d6dbeabcf651ed
 URL:		https://github.com/libbpf/libbpf
 BuildRequires:	elfutils-devel
 BuildRequires:	linux-libc-headers >= 7:5.4.0
